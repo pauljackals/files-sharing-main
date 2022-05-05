@@ -12,10 +12,15 @@ services:
     volumes:
       - mongo-db:/data/db
       - mongo-configdb:/data/configdb
+    profiles:
+      - dev
+      - prod
   client:
     build: ./files-sharing-client
     ports:
-      - 999:80
+      - ${APP_PORT:-80}:80
+    profiles:
+      - prod
   server:
     build: ./files-sharing-server
     environment:
@@ -29,6 +34,8 @@ services:
       - NODE_ENV=production
     volumes:
       - ./shared:/opt/server/shared
+    profiles:
+      - prod
 
 volumes:
   mongo-db:
