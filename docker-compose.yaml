@@ -12,6 +12,23 @@ services:
     volumes:
       - mongo-db:/data/db
       - mongo-configdb:/data/configdb
+  client:
+    build: ./files-sharing-client
+    ports:
+      - 999:80
+  server:
+    build: ./files-sharing-server
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_DATABASE=${MONGO_DATABASE}
+      - EXPRESS_SESSION_SECRET=${EXPRESS_SESSION_SECRET}
+      - EXPRESS_ROOT_USERNAME=${EXPRESS_ROOT_USERNAME}
+      - EXPRESS_ROOT_PASSWORD=${EXPRESS_ROOT_PASSWORD}
+      - MONGO_HOST=mongo
+      - NODE_ENV=production
+    volumes:
+      - ./shared:/opt/server/shared
 
 volumes:
   mongo-db:
