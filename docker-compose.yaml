@@ -3,6 +3,7 @@ services:
     build: ./database
     ports:
       - ${MONGO_PORT:-27017}:27017
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
@@ -19,12 +20,16 @@ services:
     build: ./files-sharing-client
     ports:
       - ${APP_PORT:-443}:443
+    restart: always
     volumes:
       - ./ssl:/etc/ssl
     profiles:
       - prod
   server:
     build: ./files-sharing-server
+    restart: always
+    depends_on:
+      - mongo
     environment:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
