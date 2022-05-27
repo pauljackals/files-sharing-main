@@ -1,6 +1,6 @@
 [submodule "files-sharing-server"]
 	path = files-sharing-server
-	url = ..\\files-sharing-server\\
+	url = git@github.com:pauljackals/files-sharing-server.git
 [submodule "files-sharing-client"]
 	path = files-sharing-client
-	url = ..\\files-sharing-client\\
+	url = git@github.com:pauljackals/files-sharing-client.git
